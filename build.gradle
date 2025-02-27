@@ -6,21 +6,25 @@ buildscript {
 
     repositories {
         gradlePluginPortal()
+        mavenCentral() // Added additional repository for dependency resolution
     }
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${KOTLIN_VERSION}"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.51.0'
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.51.0"
     }
 }
 
 subprojects {
-    apply plugin: "kotlin"
-
+    // For a JVM project, it is recommended to apply the explicit Kotlin JVM plugin.
+    // Alternatively, you can use "kotlin" if required.
+    apply plugin: "org.jetbrains.kotlin.jvm"
+    
     repositories {
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 }
 
+// Apply external script - consider locking the version or including the script locally to reduce potential risks.
 apply from: 'https://raw.githubusercontent.com/ligi/gradle-common/master/versions_plugin_stable_only.gradle'
